@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "522425401664",
+    "project_id": "yukatechexercise",
+    "storage_bucket": "yukatechexercise.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522425401664:android:e18c8460a19d1a946d3aa5",
+        "android_client_info": {
+          "package_name": "com.talejalilov.yukatechexercise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "522425401664-j91qetiphssgpjif27p69i2u5tver0m4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB04dmuWRtb9FhdJKf4OSWlZhPugDVHyWw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "522425401664-j91qetiphssgpjif27p69i2u5tver0m4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

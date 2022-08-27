@@ -34,7 +34,7 @@ object AppModule {
         auth: FirebaseAuth,
         firebaseFirestore: FirebaseFirestore
     ): AuthenticationRepository {
-        return AuthenticationRepoImpl(auth = auth, firestore = firebaseFirestore)
+        return AuthenticationRepoImpl(auth = auth, firebaseFirestore = firebaseFirestore)
     }
 
     @Singleton

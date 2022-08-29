@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -28,7 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.talejalilov.yukatechexercise.R
-import com.talejalilov.yukatechexercise.presentation.Authentication.AuthenticationViewModel
+import com.talejalilov.yukatechexercise.presentation.viewmodel.AuthenticationViewModel
 import com.talejalilov.yukatechexercise.presentation.Toast
 import com.talejalilov.yukatechexercise.util.Response
 import com.talejalilov.yukatechexercise.util.Screens

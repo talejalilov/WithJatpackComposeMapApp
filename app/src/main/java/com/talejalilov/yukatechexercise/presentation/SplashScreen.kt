@@ -1,9 +1,7 @@
 package com.talejalilov.yukatechexercise.presentation
 
 import android.view.animation.OvershootInterpolator
-import androidx.compose.animation.Animatable
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -18,8 +16,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.talejalilov.yukatechexercise.domain.use_cases.IsUserAuthenticated
-import com.talejalilov.yukatechexercise.presentation.Authentication.AuthenticationViewModel
+import com.talejalilov.yukatechexercise.presentation.viewmodel.AuthenticationViewModel
 import com.talejalilov.yukatechexercise.util.Screens
 import kotlinx.coroutines.delay
 

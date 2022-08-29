@@ -2,10 +2,14 @@ package com.talejalilov.yukatechexercise.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 import com.talejalilov.yukatechexercise.data.AuthenticationRepoImpl
+import com.talejalilov.yukatechexercise.data.UserRepositoryImpl
 import com.talejalilov.yukatechexercise.domain.repo.AuthenticationRepository
-import com.talejalilov.yukatechexercise.domain.use_cases.*
+import com.talejalilov.yukatechexercise.domain.repo.UserRepository
+import com.talejalilov.yukatechexercise.domain.use_cases.authenticationUseCases.*
+import com.talejalilov.yukatechexercise.domain.use_cases.userUsecases.GetUserDataUseCase
+import com.talejalilov.yukatechexercise.domain.use_cases.userUsecases.SetUserRouteUseCase
+import com.talejalilov.yukatechexercise.domain.use_cases.userUsecases.UserUseCases
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,5 +50,22 @@ object AppModule {
         firebaseSignIn = FirebaseSignIn(repository = repository),
         firebaseSignUp = FirebaseSignUp(repository = repository),
         firebaseSignUpUser = FirebaseSignUpUsers(repository = repository)
+    )
+
+    @Singleton
+    @Provides
+    fun provideUserRepository(
+        firebaseFirestore: FirebaseFirestore
+    ): UserRepository {
+        return UserRepositoryImpl(firebaseFirestore = firebaseFirestore)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserUseCases(
+        userRepository: UserRepository
+    ) = UserUseCases(
+        getUserDataUseCase = GetUserDataUseCase(repository = userRepository),
+        setUserRouteUseCase = SetUserRouteUseCase(repository = userRepository)
     )
 }

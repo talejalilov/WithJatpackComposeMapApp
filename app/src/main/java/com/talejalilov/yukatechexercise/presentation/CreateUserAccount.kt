@@ -1,11 +1,11 @@
 package com.talejalilov.yukatechexercise.presentation
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
@@ -27,12 +27,16 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.talejalilov.yukatechexercise.R
-import com.talejalilov.yukatechexercise.presentation.Authentication.AuthenticationViewModel
+import com.talejalilov.yukatechexercise.domain.model.User
+import com.talejalilov.yukatechexercise.presentation.viewmodel.AuthenticationViewModel
 import com.talejalilov.yukatechexercise.util.Response
-import com.talejalilov.yukatechexercise.util.Screens
 
 @Composable
-fun CreateUserAccount(navController: NavController, viewModel:AuthenticationViewModel = hiltViewModel()) {
+fun CreateUserAccount(
+    navController: NavController,
+    viewModel: AuthenticationViewModel = hiltViewModel()
+) {
+
 
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.weight(1f)) {
@@ -84,8 +88,10 @@ fun CreateUserAccount(navController: NavController, viewModel:AuthenticationView
                     ) {
                         Row() {
 
-                            Text( modifier = Modifier.padding(top = 10.dp),
-                                text = "Create User", fontWeight = FontWeight.Bold, fontSize = 32.sp)
+                            Text(
+                                modifier = Modifier.padding(top = 10.dp),
+                                text = "Create User", fontWeight = FontWeight.Bold, fontSize = 32.sp
+                            )
                             Image(
                                 painter = painterResource(id = R.drawable.user_circle),
                                 contentDescription = "App Logo",
@@ -212,8 +218,7 @@ fun CreateUserAccount(navController: NavController, viewModel:AuthenticationView
                         }
                     }
                 }
-
-
+//User List
 
 
                 BottomNavigationMenu(
@@ -227,5 +232,43 @@ fun CreateUserAccount(navController: NavController, viewModel:AuthenticationView
     }
 
 
+}
+
+@Composable
+fun UserListView(userList:List<User>, navController: NavController) {
+
+    LazyColumn(contentPadding = PaddingValues(5.dp)) {
+        items(userList) { users ->
+
+            UserRow(navController = navController, user = users )
+        }
+    }
+    
+}
+
+@Composable
+fun UserRow(navController: NavController, user: User) {
+
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .background(color = MaterialTheme.colors.secondary)
+    ) {
+
+        Text(
+            text = user.email,
+            style = MaterialTheme.typography.h4,
+            modifier = Modifier.padding(2.dp),
+            color = MaterialTheme.colors.primary
+        )
+
+        Text(
+            text = user.username,
+            style = MaterialTheme.typography.h5,
+            modifier = Modifier.padding(2.dp),
+            color = MaterialTheme.colors.primaryVariant
+        )
+
+
+    }
 }
 

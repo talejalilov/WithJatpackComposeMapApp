@@ -1,4 +1,4 @@
-package com.talejalilov.yukatechexercise.domain.use_cases
+package com.talejalilov.yukatechexercise.domain.use_cases.authenticationUseCases
 
 data class AuthenticationUseCases(
     val isUserAuthenticated: IsUserAuthenticated,

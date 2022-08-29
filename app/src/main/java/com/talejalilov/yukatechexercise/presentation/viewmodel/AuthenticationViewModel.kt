@@ -1,21 +1,19 @@
-package com.talejalilov.yukatechexercise.presentation.Authentication
+package com.talejalilov.yukatechexercise.presentation.viewmodel
 
 import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.talejalilov.yukatechexercise.domain.use_cases.AuthenticationUseCases
+import com.talejalilov.yukatechexercise.domain.use_cases.authenticationUseCases.AuthenticationUseCases
 import com.talejalilov.yukatechexercise.util.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.log
 
 @HiltViewModel
 class AuthenticationViewModel @Inject constructor(
-    private val autUseCases :AuthenticationUseCases
+    private val autUseCases : AuthenticationUseCases
 ) :ViewModel(){
 
     val isUserAuthenticated get() = autUseCases.isUserAuthenticated()

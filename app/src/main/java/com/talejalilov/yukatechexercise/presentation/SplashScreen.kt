@@ -47,7 +47,7 @@ fun SplashScreen(navController: NavController,
                 }
             }
         } else {
-                navController.navigate(Screens.LoginScreen.route){
+                navController.navigate(Screens.AdminLoginScreen.route){
                     popUpTo(Screens.SplashScreen.route){
                         inclusive = true
                     }

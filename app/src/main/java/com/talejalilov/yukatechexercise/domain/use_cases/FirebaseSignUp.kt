@@ -8,4 +8,5 @@ class FirebaseSignUp@Inject constructor(
 ) {
     operator fun invoke(email:String, password :String, username:String) = repository.firebaseSignUp(email, password,username)
 
+
 }

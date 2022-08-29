@@ -1,21 +1,18 @@
 package com.talejalilov.yukatechexercise
 
 import android.os.Bundle
-import android.view.WindowInsets
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.*
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.talejalilov.yukatechexercise.presentation.FeedScreen
-import com.talejalilov.yukatechexercise.presentation.AdminLoginScreen
-import com.talejalilov.yukatechexercise.presentation.SignUpScreen
-import com.talejalilov.yukatechexercise.presentation.SplashScreen
+import com.talejalilov.yukatechexercise.presentation.*
+import com.talejalilov.yukatechexercise.presentation.Authentication.AdminLoginScreen
+import com.talejalilov.yukatechexercise.presentation.Authentication.ChooseScreen
+import com.talejalilov.yukatechexercise.presentation.Authentication.SignUpScreen
+import com.talejalilov.yukatechexercise.presentation.Authentication.UserLoginScreen
 import com.talejalilov.yukatechexercise.ui.theme.YukaTechExerciseTheme
 import com.talejalilov.yukatechexercise.util.Screens
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,6 +44,15 @@ fun MapApplication(navController: NavHostController) {
         composable(route = Screens.SplashScreen.route) {
             SplashScreen(navController = navController)
         }
+        
+        composable(route = Screens.ChooseScreen.route){
+            ChooseScreen(navHostController = navController)
+        }
+        
+        composable(route = Screens.UserLoginScreen.route){
+            UserLoginScreen(navHostController = navController)
+        }
+        
         composable(route = Screens.AdminLoginScreen.route) {
             AdminLoginScreen(navHostController = navController)
         }
@@ -57,7 +63,11 @@ fun MapApplication(navController: NavHostController) {
         }
 
         composable(route = Screens.FeedScreen.route) {
-            FeedScreen(navHostController = navController)
+            FeedScreen(navController = navController)
+        }
+
+        composable(route = Screens.CreateUserAccount.route) {
+            CreateUserAccount(navController = navController)
         }
     }
 

@@ -13,6 +13,8 @@ interface AuthenticationRepository {
 
     fun firebaseSignUp(username:String, email:String,password:String) :Flow<Response<Boolean>>
 
+    fun firebaseSignUpUser(username:String, email:String,password:String) :Flow<Response<Boolean>>
+
     fun firebaseSignOut() :Flow<Response<Boolean>>
 
 

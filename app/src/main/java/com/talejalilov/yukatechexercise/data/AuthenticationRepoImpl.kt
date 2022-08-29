@@ -4,10 +4,10 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.talejalilov.yukatechexercise.domain.model.Admin
+import com.talejalilov.yukatechexercise.domain.model.User
 import com.talejalilov.yukatechexercise.domain.repo.AuthenticationRepository
 import com.talejalilov.yukatechexercise.util.Constants
 import com.talejalilov.yukatechexercise.util.Response
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -22,6 +22,8 @@ class AuthenticationRepoImpl @Inject constructor(
 ) : AuthenticationRepository {
 
     var operationIsSuccessful : Boolean = false
+
+    var userID :String=""
 
     override fun isUserAuthenticatedInFirebase(): Boolean {
         return auth.currentUser != null
@@ -45,6 +47,7 @@ class AuthenticationRepoImpl @Inject constructor(
             auth.signInWithEmailAndPassword(email,password).addOnSuccessListener {
                 operationIsSuccessful = true
             }.await()
+
             emit(Response.Success(operationIsSuccessful))
 
         }catch (e:Exception){
@@ -67,18 +70,71 @@ class AuthenticationRepoImpl @Inject constructor(
                 operationIsSuccessful = true
                 Log.d("TAG", "3: ")
             }.await()
-//                if(operationIsSuccessful){
-//
-//                    val userId = auth.currentUser?.uid!!
-//                    val obj = Admin(username = username, userId = userId,   password = password, email = email)
-//                    firebaseFirestore.collection(Constants.COLLECTION_NAME_USERS).document(userId).set(obj).addOnSuccessListener {
-//
-//                    }
+                if(operationIsSuccessful) {
+
+                     userID = auth.currentUser?.uid!!
+                    val obj = Admin(
+                        username = username,
+                        userId = userID,
+                        password = password,
+                        email = email
+                    )
+                    firebaseFirestore.collection(Constants.COLLECTION_NAME_ADMINS).document(userID)
+                        .set(obj).addOnSuccessListener {
+
+                    }
                     emit(Response.Success(operationIsSuccessful))
+
+                }
+            else {
+                    emit(Response.Success(operationIsSuccessful))
+
+                }
         }catch (e:Exception){
             emit(Response.Error(e.localizedMessage?:"SignUp Error"))
         }
     }
+
+    override fun firebaseSignUpUser(email: String,
+                                password: String,
+                                username:String
+    ): Flow<Response<Boolean>> = flow{
+        Log.d("TAG", "firebaseSignUp1: ")
+
+        operationIsSuccessful = false
+        try {
+            Log.d("TAG", "firebaseSignUp2: ")
+            emit(Response.Loading)
+            auth.createUserWithEmailAndPassword(email,password).addOnSuccessListener {
+                operationIsSuccessful = true
+                Log.d("TAG", "3: ")
+            }.await()
+            if(operationIsSuccessful) {
+
+                val userId = auth.currentUser?.uid!!
+                val obj = User(
+                    username = username,
+                    userId = userId,
+                    password = password,
+                    email = email
+                )
+
+                firebaseFirestore.collection(Constants.COLLECTION_NAME_ADMINS).document(userID).collection(Constants.COLLECTION_NAME_USERS)
+                    .document(userId).set(obj).addOnSuccessListener {
+
+                    }
+                emit(Response.Success(operationIsSuccessful))
+
+            }
+            else {
+                emit(Response.Success(operationIsSuccessful))
+
+            }
+        }catch (e:Exception){
+            emit(Response.Error(e.localizedMessage?:"SignUp Error"))
+        }
+    }
+
 
     override fun firebaseSignOut(): Flow<Response<Boolean>> = flow {
 

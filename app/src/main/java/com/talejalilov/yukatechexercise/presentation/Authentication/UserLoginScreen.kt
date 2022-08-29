@@ -1,7 +1,6 @@
-package com.talejalilov.yukatechexercise.presentation
+package com.talejalilov.yukatechexercise.presentation.Authentication
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,16 +11,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -33,13 +28,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.talejalilov.yukatechexercise.R
 import com.talejalilov.yukatechexercise.presentation.Authentication.AuthenticationViewModel
+import com.talejalilov.yukatechexercise.presentation.Toast
 import com.talejalilov.yukatechexercise.util.Response
 import com.talejalilov.yukatechexercise.util.Screens
 
 @Composable
-fun AdminLoginScreen(
+fun UserLoginScreen(
     navHostController: NavHostController,
     viewModel: AuthenticationViewModel = hiltViewModel()
+
 ) {
     Scaffold(backgroundColor = MaterialTheme.colors.primary) {
         Column(
@@ -82,20 +79,18 @@ fun AdminLoginScreen(
                     .weight(2f)
                     .padding(8.dp),
                 shape = RoundedCornerShape(32.dp)
+
             ) {
                 Column(
                     Modifier
                         .fillMaxSize()
-                        .padding(32.dp)
-                ) {
+                        .padding(32.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
                     Text(text = "Welcome YUKA APP!", fontWeight = FontWeight.Bold, fontSize = 32.sp)
 
-                    Column(
-                        Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Spacer(modifier = Modifier.weight(1f))
+
+                      Spacer(modifier = Modifier.height(8.dp))
 
                         OutlinedTextField(  modifier = Modifier.fillMaxWidth(),
                             value = emailState.value,
@@ -155,34 +150,27 @@ fun AdminLoginScreen(
                             Text(text = "Sign In",
                                 color = Color.Black) }
 
-                        Spacer(modifier = Modifier.weight(1f))
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            TextButton(onClick = {
-                                navHostController.navigate(route = Screens.SignUpScreen.route) {
-                                    launchSingleTop = true
-                                }
-                            }) {
-                                Text(text = "Admin For Sign Up")
-                            }
-                        }
                         when (val response = viewModel.signInState.value) {
 
                             is Response.Loading -> {
                                 CircularProgressIndicator(
-                                    modifier = Modifier.width(30.dp).height(30.dp)
+                                    modifier = Modifier
+                                        .width(30.dp)
+                                        .height(30.dp)
                                 )
                             }
 
                             is Response.Success -> {
-                                if (response.data) {
-                                    navHostController.navigate(Screens.FeedScreen.route) {
-                                        popUpTo(Screens.SignUpScreen.route) {
-                                            inclusive = true
+                                LaunchedEffect(key1 = true){
+                                    if (response.data) {
+                                        navHostController.navigate(Screens.FeedScreen.route) {
+                                            popUpTo(Screens.SignUpScreen.route) {
+                                                inclusive = true
+                                            }
                                         }
                                     }
+
+
                                 }
                             }
 
@@ -192,7 +180,7 @@ fun AdminLoginScreen(
                             }
                         }
 
-                    }
+
                 }
             }
 

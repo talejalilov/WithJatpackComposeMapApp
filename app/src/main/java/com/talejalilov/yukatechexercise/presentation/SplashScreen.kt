@@ -24,15 +24,17 @@ import com.talejalilov.yukatechexercise.util.Screens
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(navController: NavController,
-                 authViewModel: AuthenticationViewModel = hiltViewModel()) {
+fun SplashScreen(
+    navController: NavController,
+    authViewModel: AuthenticationViewModel = hiltViewModel()
+) {
 
     val authValue = authViewModel.isUserAuthenticated
-    val scale = remember{
+    val scale = remember {
         Animatable(0f)
     }
 
-    LaunchedEffect(key1 = true){
+    LaunchedEffect(key1 = true) {
         scale.animateTo(
             targetValue = 0.5f,
             animationSpec = tween(durationMillis = 1500, easing = {
@@ -40,18 +42,18 @@ fun SplashScreen(navController: NavController,
             })
         )
         delay(3000)
-        if(authValue){
-            navController.navigate(Screens.FeedScreen.route){
-                popUpTo(Screens.SplashScreen.route){
+        if (authValue) {
+            navController.navigate(Screens.FeedScreen.route) {
+                popUpTo(Screens.SplashScreen.route) {
                     inclusive = true
                 }
             }
         } else {
-                navController.navigate(Screens.AdminLoginScreen.route){
-                    popUpTo(Screens.SplashScreen.route){
-                        inclusive = true
-                    }
+            navController.navigate(Screens.ChooseScreen.route) {
+                popUpTo(Screens.SplashScreen.route) {
+                    inclusive = true
                 }
+            }
 
         }
 

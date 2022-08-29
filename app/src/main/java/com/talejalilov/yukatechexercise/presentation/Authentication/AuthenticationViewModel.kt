@@ -62,6 +62,15 @@ class AuthenticationViewModel @Inject constructor(
         }
     }
 
+    fun signUpUser(email:String, password:String, userName:String){
+        viewModelScope.launch {
+            autUseCases.firebaseSignUpUser(email = email, password = password, username = userName).collect{
+                Log.d("ALT","SIGN UP")
+                _signUpState.value = it
+            }
+        }
+    }
+
     fun getFirebaseAuthState(){
         viewModelScope.launch {
             autUseCases.firebaseAuthState().collect{

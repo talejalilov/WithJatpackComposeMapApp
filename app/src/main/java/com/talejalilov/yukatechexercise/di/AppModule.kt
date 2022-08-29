@@ -44,6 +44,7 @@ object AppModule {
         firebaseAuthState = FirebaseAuthState(repository = repository),
         firebaseSignOut = FirebaseSignOut(repository = repository),
         firebaseSignIn = FirebaseSignIn(repository = repository),
-        firebaseSignUp = FirebaseSignUp(repository = repository)
+        firebaseSignUp = FirebaseSignUp(repository = repository),
+        firebaseSignUpUser = FirebaseSignUpUsers(repository = repository)
     )
 }

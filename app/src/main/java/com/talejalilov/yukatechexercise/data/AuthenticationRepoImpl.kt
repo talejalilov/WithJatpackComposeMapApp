@@ -23,7 +23,7 @@ class AuthenticationRepoImpl @Inject constructor(
 
     var operationIsSuccessful : Boolean = false
 
-    var userID :String=""
+    var adminID :String=""
 
     override fun isUserAuthenticatedInFirebase(): Boolean {
         return auth.currentUser != null
@@ -72,14 +72,14 @@ class AuthenticationRepoImpl @Inject constructor(
             }.await()
                 if(operationIsSuccessful) {
 
-                     userID = auth.currentUser?.uid!!
+                     adminID = auth.currentUser?.uid!!
                     val obj = Admin(
                         username = username,
-                        userId = userID,
+                        userId = adminID,
                         password = password,
                         email = email
                     )
-                    firebaseFirestore.collection(Constants.COLLECTION_NAME_ADMINS).document(userID)
+                    firebaseFirestore.collection(Constants.COLLECTION_NAME_ADMINS).document(adminID)
                         .set(obj).addOnSuccessListener {
 
                     }
@@ -119,7 +119,7 @@ class AuthenticationRepoImpl @Inject constructor(
                     email = email
                 )
 
-                firebaseFirestore.collection(Constants.COLLECTION_NAME_ADMINS).document(userID).collection(Constants.COLLECTION_NAME_USERS)
+                firebaseFirestore.collection(Constants.COLLECTION_NAME_ADMINS).document(adminID).collection(Constants.COLLECTION_NAME_USERS)
                     .document(userId).set(obj).addOnSuccessListener {
 
                     }
@@ -135,7 +135,6 @@ class AuthenticationRepoImpl @Inject constructor(
         }
     }
 
-
     override fun firebaseSignOut(): Flow<Response<Boolean>> = flow {
 
         try {
@@ -148,6 +147,8 @@ class AuthenticationRepoImpl @Inject constructor(
         }
 
     }
+
+
 
 
 }

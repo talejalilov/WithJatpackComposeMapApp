@@ -38,38 +38,38 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getUserDetail(userId: String): Flow<Response<User>> {
-        TODO("Not yet implemented")
-    }
-
-    override fun setUserRoute(
-        adminId: String,
-        userId: String,
-        latitude: String,
-        longitude: String
-    ): Flow<Response<Boolean>> = flow {
-
-        operationSuccessful = false
-        try {
-            val userObj = mutableMapOf<String,String>()
-            userObj["longitude"] = longitude
-            userObj["latitude"] = latitude
-
-            firebaseFirestore.collection(Constants.COLLECTION_NAME_ADMINS).document(adminId)
-                .collection(Constants.COLLECTION_NAME_USERS).document(userId).update(userObj as Map<String,Any>)
-                .addOnSuccessListener {
-
-                }.await()
-
-            if(operationSuccessful){
-                emit(Response.Success(operationSuccessful))
-            }else {
-                emit(Response.Error("You can not send Data"))
-
-            }
-        }catch (e:Exception){
-
-        }
-    }
+//    override fun getUserDetail(userId: String): Flow<Response<User>> {
+//        TODO("Not yet implemented")
+//    }
+//
+//    override fun setUserRoute(
+//        adminId: String,
+//        userId: String,
+//        latitude: String,
+//        longitude: String
+//    ): Flow<Response<Boolean>> = flow {
+//
+//        operationSuccessful = false
+//        try {
+//            val userObj = mutableMapOf<String,String>()
+//            userObj["longitude"] = longitude
+//            userObj["latitude"] = latitude
+//
+//            firebaseFirestore.collection(Constants.COLLECTION_NAME_ADMINS).document(adminId)
+//                .collection(Constants.COLLECTION_NAME_USERS).document(userId).update(userObj as Map<String,Any>)
+//                .addOnSuccessListener {
+//
+//                }.await()
+//
+//            if(operationSuccessful){
+//                emit(Response.Success(operationSuccessful))
+//            }else {
+//                emit(Response.Error("You can not send Data"))
+//
+//            }
+//        }catch (e:Exception){
+//
+//        }
+//    }
 
 }

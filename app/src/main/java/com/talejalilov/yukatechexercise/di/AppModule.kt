@@ -2,10 +2,14 @@ package com.talejalilov.yukatechexercise.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.talejalilov.yukatechexercise.data.AdminRepositoryImpl
 import com.talejalilov.yukatechexercise.data.AuthenticationRepoImpl
 import com.talejalilov.yukatechexercise.data.UserRepositoryImpl
+import com.talejalilov.yukatechexercise.domain.repo.AdminRepository
 import com.talejalilov.yukatechexercise.domain.repo.AuthenticationRepository
 import com.talejalilov.yukatechexercise.domain.repo.UserRepository
+import com.talejalilov.yukatechexercise.domain.use_cases.adminUseCases.AdminUseCases
+import com.talejalilov.yukatechexercise.domain.use_cases.adminUseCases.GetAdminUsers
 import com.talejalilov.yukatechexercise.domain.use_cases.authenticationUseCases.*
 import com.talejalilov.yukatechexercise.domain.use_cases.userUsecases.GetUserDataUseCase
 import com.talejalilov.yukatechexercise.domain.use_cases.userUsecases.SetUserRouteUseCase
@@ -65,7 +69,23 @@ object AppModule {
     fun provideUserUseCases(
         userRepository: UserRepository
     ) = UserUseCases(
-        getUserDataUseCase = GetUserDataUseCase(repository = userRepository),
-        setUserRouteUseCase = SetUserRouteUseCase(repository = userRepository)
+        getUserDataUseCase = GetUserDataUseCase(repository = userRepository)
+     //   setUserRouteUseCase = SetUserRouteUseCase(repository = userRepository)
+    )
+
+
+
+    @Singleton
+    @Provides
+    fun provideAdminUsersRepository(firebaseFirestore: FirebaseFirestore) : AdminRepository{
+        return AdminRepositoryImpl(firebaseFirestore = firebaseFirestore)
+    }
+
+    @Singleton
+    @Provides
+    fun provideAdminUseCases(
+        adminRepository: AdminRepository
+    ) = AdminUseCases(
+        getAdminsUsers = GetAdminUsers(repository = adminRepository)
     )
 }

@@ -8,13 +8,13 @@ interface UserRepository {
 
     fun getUserData(adminId :String,userId:String): Flow<Response<User>>
 
-    fun getUserDetail(userId:String): Flow<Response<User>>
-
-    fun setUserRoute(
-        adminId: String,
-        userId: String,
-        latitude :String,
-        longitude:String
-    ):Flow<Response<Boolean>>
+//    fun getUserDetail(userId:String): Flow<Response<User>>
+//
+//    fun setUserRoute(
+//        adminId: String,
+//        userId: String,
+//        latitude :String,
+//        longitude:String
+//    ):Flow<Response<Boolean>>
 
 }

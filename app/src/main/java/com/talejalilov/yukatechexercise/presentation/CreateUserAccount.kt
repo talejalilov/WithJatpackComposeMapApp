@@ -28,15 +28,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.talejalilov.yukatechexercise.R
 import com.talejalilov.yukatechexercise.domain.model.User
+import com.talejalilov.yukatechexercise.presentation.viewmodel.AdminViewModel
 import com.talejalilov.yukatechexercise.presentation.viewmodel.AuthenticationViewModel
+import com.talejalilov.yukatechexercise.presentation.viewmodel.UserViewModel
 import com.talejalilov.yukatechexercise.util.Response
 
 @Composable
 fun CreateUserAccount(
     navController: NavController,
-    viewModel: AuthenticationViewModel = hiltViewModel()
+    viewModel: AuthenticationViewModel = hiltViewModel(),
 ) {
-
 
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.weight(1f)) {
@@ -218,7 +219,9 @@ fun CreateUserAccount(
                         }
                     }
                 }
-//User List
+                //Admin her olusturdugu User listelene bilecek
+                //AdminList()
+
 
 
                 BottomNavigationMenu(
@@ -230,28 +233,42 @@ fun CreateUserAccount(
 
 
     }
+}
+
+@Composable
+fun AdminList(
+    navController: NavController,
+    adminViewModel: AdminViewModel = hiltViewModel()
+) {
+    adminViewModel.getAdminUsers()
+    val userList : MutableState<State<Response<List<User>>>> = remember { mutableStateOf(adminViewModel.adminUsers) }
+
+
+   // UserListView(userList = userList, navController = navController)
 
 
 }
 
 @Composable
-fun UserListView(userList:List<User>, navController: NavController) {
+fun UserListView(userList: List<User> , navController: NavController) {
 
     LazyColumn(contentPadding = PaddingValues(5.dp)) {
+
         items(userList) { users ->
 
-            UserRow(navController = navController, user = users )
+            UserRow(navController = navController, user = users)
         }
     }
-    
+
 }
 
 @Composable
 fun UserRow(navController: NavController, user: User) {
 
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .background(color = MaterialTheme.colors.secondary)
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(color = MaterialTheme.colors.secondary)
     ) {
 
         Text(

@@ -40,21 +40,21 @@ class UserViewModel @Inject constructor(
         }
     }
 
-    fun setUserRoute(  adminId: String,
-                       userId: String,
-                       latitude :String,
-                       longitude:String){
-        if(userId!=null){
-            viewModelScope.launch {
-                userUseCases.setUserRouteUseCase(
-                    adminId = adminId,
-                    userId = userId,
-                    latitude = latitude,
-                    longitude = longitude).collect{
-                        _setUserRoute.value = it
-                }
-            }
-
-        }
-    }
+//    fun setUserRoute(  adminId: String,
+//                       userId: String,
+//                       latitude :String,
+//                       longitude:String){
+//        if(userId!=null){
+//            viewModelScope.launch {
+//                userUseCases.setUserRouteUseCase(
+//                    adminId = adminId,
+//                    userId = userId,
+//                    latitude = latitude,
+//                    longitude = longitude).collect{
+//                        _setUserRoute.value = it
+//                }
+//            }
+//
+//        }
+//    }
 }

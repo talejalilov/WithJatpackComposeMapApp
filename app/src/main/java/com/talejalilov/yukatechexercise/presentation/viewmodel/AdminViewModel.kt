@@ -28,6 +28,8 @@ class AdminViewModel @Inject constructor(
         viewModelScope.launch {
             adminUseCases.getAdminsUsers(adminId= adminId).collect{
                 _adminUsers.value = it
+
+
             }
         }
     }

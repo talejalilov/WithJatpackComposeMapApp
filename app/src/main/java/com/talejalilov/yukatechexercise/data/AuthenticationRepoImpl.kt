@@ -99,6 +99,8 @@ class AuthenticationRepoImpl @Inject constructor(
                                 password: String,
                                 username:String
     ): Flow<Response<Boolean>> = flow{
+        Log.d("TAG", "firebaseSignUpUser:$adminID ")
+
         Log.d("TAG", "firebaseSignUp1: ")
 
         operationIsSuccessful = false
@@ -119,8 +121,8 @@ class AuthenticationRepoImpl @Inject constructor(
                     email = email
                 )
 
-                firebaseFirestore.collection(Constants.COLLECTION_NAME_ADMINS).document(adminID).collection(Constants.COLLECTION_NAME_USERS)
-                    .document(userId).set(obj).addOnSuccessListener {
+                firebaseFirestore.collection(Constants.COLLECTION_NAME_USERS).document(userId)
+                    .set(obj).addOnSuccessListener {
 
                     }
                 emit(Response.Success(operationIsSuccessful))

@@ -1,5 +1,6 @@
 package com.talejalilov.yukatechexercise.presentation
 
+import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,6 +15,7 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
@@ -191,6 +193,7 @@ fun CreateUserAccount(
                                     color = Color.Black
                                 )
                             }
+
                             when (val response = viewModel.signUpState.value) {
 
                                 is Response.Loading -> {
@@ -215,14 +218,17 @@ fun CreateUserAccount(
                                 }
                             }
 
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Text(
+                                text = "Users List",
+                                color = Color.Black
+                            )
+                            AdminList()
+
 
                         }
                     }
                 }
-                //Admin her olusturdugu User listelene bilecek
-                //AdminList()
-
-
 
                 BottomNavigationMenu(
                     selectedItem = BottomNavigationItem.CREATE,
@@ -237,50 +243,69 @@ fun CreateUserAccount(
 
 @Composable
 fun AdminList(
-    navController: NavController,
     adminViewModel: AdminViewModel = hiltViewModel()
 ) {
     adminViewModel.getAdminUsers()
-    val userList : MutableState<State<Response<List<User>>>> = remember { mutableStateOf(adminViewModel.adminUsers) }
+
+    when (val response = adminViewModel.adminUsers.value) {
+
+        is Response.Loading ->{
+
+            CircularProgressIndicator(color = MaterialTheme.colors.primary)
+
+        }
+
+        is Response.Success ->{
 
 
-   // UserListView(userList = userList, navController = navController)
-
-
-}
-
-@Composable
-fun UserListView(userList: List<User> , navController: NavController) {
-
-    LazyColumn(contentPadding = PaddingValues(5.dp)) {
-
-        items(userList) { users ->
-
-            UserRow(navController = navController, user = users)
+            //Log.d("TAG", "AdminList:$user")
+            if(response.data.isNotEmpty()){
+                   UserListView(userList = response.data)
+            }
+        }
+        is Response.Error ->{
+            Toast(message = "Has problem")
         }
     }
 
+
+
 }
 
 @Composable
-fun UserRow(navController: NavController, user: User) {
+fun UserListView(userList: List<User>){
+
+    LazyColumn(contentPadding = PaddingValues(5.dp)
+
+
+        ) {
+
+        items(userList) { users ->
+
+            UserRow(user = users)
+        }
+    }
+}
+
+@Composable
+fun UserRow(user:User) {
+
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = MaterialTheme.colors.secondary)
+            .background(color = Color.White)
     ) {
-
         Text(
-            text = user.email,
-            style = MaterialTheme.typography.h4,
+            text = "username: " + user.username ,
+            style = MaterialTheme.typography.h5,
             modifier = Modifier.padding(2.dp),
-            color = MaterialTheme.colors.primary
+            color = MaterialTheme.colors.primaryVariant
         )
 
         Text(
-            text = user.username,
-            style = MaterialTheme.typography.h5,
+            text = "email: " +user.email,
+            style = MaterialTheme.typography.h6,
             modifier = Modifier.padding(2.dp),
             color = MaterialTheme.colors.primaryVariant
         )

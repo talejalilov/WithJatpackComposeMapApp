@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
-
     <application
         android:name=".MapApp"
         android:usesCleartextTraffic="true"
@@ -17,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.YukaTechExercise"
         tools:targetApi="m">
+
+        <meta-data android:name="com.google.android.geo.AIzaSyDTW9sVW_2PicMMyI7aMCf2QFgaB6525Ec"
+            android:value="AIzaSyDTW9sVW_2PicMMyI7aMCf2QFgaB6525Ec"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

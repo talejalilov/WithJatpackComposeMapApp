@@ -8,14 +8,11 @@ import com.talejalilov.yukatechexercise.util.Response
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.tasks.await
-import java.lang.Exception
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
     private val firebaseFirestore: FirebaseFirestore
-) : UserRepository{
+) : UserRepository {
 
     private var operationSuccessful = false
 
@@ -23,17 +20,17 @@ class UserRepositoryImpl @Inject constructor(
         Response.Loading
         val snapshotListener = firebaseFirestore.collection(Constants.COLLECTION_NAME_ADMINS)
             .document(adminId).collection(Constants.COLLECTION_NAME_USERS).document(userId)
-            .addSnapshotListener{
-                snapshot,error ->
-                val response = if(snapshot!=null){
+            .addSnapshotListener {
+                    snapshot, error ->
+                val response = if (snapshot != null) {
                     val userInfo = snapshot.toObject(User::class.java)
                     Response.Success<User>(userInfo!!)
-                }else {
-                    Response.Error(error?.message?:error.toString())
+                } else {
+                    Response.Error(error?.message ?: error.toString())
                 }
                 trySend(response).isSuccess
             }
-        awaitClose{
+        awaitClose {
             snapshotListener.remove()
         }
     }
@@ -71,5 +68,4 @@ class UserRepositoryImpl @Inject constructor(
 //
 //        }
 //    }
-
 }

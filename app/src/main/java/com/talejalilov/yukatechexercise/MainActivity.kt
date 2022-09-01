@@ -1,14 +1,10 @@
 package com.talejalilov.yukatechexercise
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.runtime.*
-import androidx.core.content.ContextCompat
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -86,12 +82,11 @@ class MainActivity : ComponentActivity() {
 //            Log.d("Exception", "Exception:  $e.message.toString()")
 //        }
 //    }
-//}
+// }
 
     @Composable
     fun MapApplication(navController: NavHostController) {
         NavHost(navController = navController, startDestination = Screens.SplashScreen.route) {
-
             composable(route = Screens.SplashScreen.route) {
                 SplashScreen(navController = navController)
             }
@@ -110,7 +105,6 @@ class MainActivity : ComponentActivity() {
 
             composable(route = Screens.SignUpScreen.route) {
                 SignUpScreen(navHostController = navController)
-
             }
 
             composable(route = Screens.FeedScreen.route) {
@@ -121,7 +115,5 @@ class MainActivity : ComponentActivity() {
                 CreateUserAccount(navController = navController)
             }
         }
-
     }
 }
-

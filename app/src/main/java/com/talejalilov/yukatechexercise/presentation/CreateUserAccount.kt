@@ -1,6 +1,5 @@
 package com.talejalilov.yukatechexercise.presentation
 
-import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,7 +14,6 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
@@ -32,20 +30,17 @@ import com.talejalilov.yukatechexercise.R
 import com.talejalilov.yukatechexercise.domain.model.User
 import com.talejalilov.yukatechexercise.presentation.viewmodel.AdminViewModel
 import com.talejalilov.yukatechexercise.presentation.viewmodel.AuthenticationViewModel
-import com.talejalilov.yukatechexercise.presentation.viewmodel.UserViewModel
 import com.talejalilov.yukatechexercise.util.Response
 
 @Composable
 fun CreateUserAccount(
     navController: NavController,
-    viewModel: AuthenticationViewModel = hiltViewModel(),
+    viewModel: AuthenticationViewModel = hiltViewModel()
 ) {
-
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.weight(1f)) {
             Text(text = "Create User Screen")
         }
-
 
         Scaffold(backgroundColor = MaterialTheme.colors.primary) {
             Column(
@@ -56,7 +51,6 @@ fun CreateUserAccount(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
-
                 val usernameState = remember {
                     mutableStateOf("")
                 }
@@ -77,7 +71,6 @@ fun CreateUserAccount(
                     usernameState.value.isNotBlank() && passwordState.value.length >= 7
                 }
 
-
                 Card(
                     Modifier
                         .weight(2f)
@@ -90,10 +83,11 @@ fun CreateUserAccount(
                             .padding(32.dp)
                     ) {
                         Row() {
-
                             Text(
                                 modifier = Modifier.padding(top = 10.dp),
-                                text = "Create User", fontWeight = FontWeight.Bold, fontSize = 32.sp
+                                text = "Create User",
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 32.sp
                             )
                             Image(
                                 painter = painterResource(id = R.drawable.user_circle),
@@ -107,9 +101,8 @@ fun CreateUserAccount(
 
                         Column(
                             Modifier.fillMaxSize(),
-                            horizontalAlignment = Alignment.CenterHorizontally,
+                            horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-
                             OutlinedTextField(
                                 modifier = Modifier.fillMaxWidth(),
                                 value = usernameState.value,
@@ -117,13 +110,14 @@ fun CreateUserAccount(
                                 label = { Text(text = "Username") },
                                 singleLine = true,
                                 trailingIcon = {
-                                    if (usernameState.value.isNotBlank())
+                                    if (usernameState.value.isNotBlank()) {
                                         IconButton(onClick = { usernameState.value = "" }) {
                                             Icon(
                                                 imageVector = Icons.Filled.Clear,
                                                 contentDescription = ""
                                             )
                                         }
+                                    }
                                 }
                             )
 
@@ -139,13 +133,14 @@ fun CreateUserAccount(
                                     imeAction = ImeAction.Done
                                 ),
                                 trailingIcon = {
-                                    if (emailState.value.isNotBlank())
+                                    if (emailState.value.isNotBlank()) {
                                         IconButton(onClick = { emailState.value = "" }) {
                                             Icon(
                                                 imageVector = Icons.Filled.Clear,
                                                 contentDescription = ""
                                             )
                                         }
+                                    }
                                 }
                             )
                             Spacer(modifier = Modifier.height(8.dp))
@@ -186,7 +181,7 @@ fun CreateUserAccount(
                                         password = passwordState.value,
                                         userName = usernameState.value
                                     )
-                                },
+                                }
                             ) {
                                 Text(
                                     text = "Create User",
@@ -195,7 +190,6 @@ fun CreateUserAccount(
                             }
 
                             when (val response = viewModel.signUpState.value) {
-
                                 is Response.Loading -> {
                                     CircularProgressIndicator(
                                         modifier = Modifier
@@ -213,7 +207,6 @@ fun CreateUserAccount(
                                 }
 
                                 is Response.Error -> {
-
                                     Toast(message = response.message)
                                 }
                             }
@@ -224,8 +217,6 @@ fun CreateUserAccount(
                                 color = Color.Black
                             )
                             AdminList()
-
-
                         }
                     }
                 }
@@ -236,8 +227,6 @@ fun CreateUserAccount(
                 )
             }
         }
-
-
     }
 }
 
@@ -248,38 +237,28 @@ fun AdminList(
     adminViewModel.getAdminUsers()
 
     when (val response = adminViewModel.adminUsers.value) {
-
-        is Response.Loading ->{
-
+        is Response.Loading -> {
             CircularProgressIndicator(color = MaterialTheme.colors.primary)
-
         }
 
-        is Response.Success ->{
-
-
-            //Log.d("TAG", "AdminList:$user")
-            if(response.data.isNotEmpty()){
-                   UserListView(userList = response.data)
+        is Response.Success -> {
+            // Log.d("TAG", "AdminList:$user")
+            if (response.data.isNotEmpty()) {
+                UserListView(userList = response.data)
             }
         }
-        is Response.Error ->{
+        is Response.Error -> {
             Toast(message = "Has problem")
         }
     }
-
-
-
 }
 
 @Composable
-fun UserListView(userList: List<User>){
+fun UserListView(userList: List<User>) {
+    LazyColumn(
+        contentPadding = PaddingValues(5.dp)
 
-    LazyColumn(contentPadding = PaddingValues(5.dp)
-
-
-        ) {
-
+    ) {
         items(userList) { users ->
 
             UserRow(user = users)
@@ -288,29 +267,24 @@ fun UserListView(userList: List<User>){
 }
 
 @Composable
-fun UserRow(user:User) {
-
-
+fun UserRow(user: User) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .background(color = Color.White)
     ) {
         Text(
-            text = "username: " + user.username ,
+            text = "username: " + user.username,
             style = MaterialTheme.typography.h5,
             modifier = Modifier.padding(2.dp),
             color = MaterialTheme.colors.primaryVariant
         )
 
         Text(
-            text = "email: " +user.email,
+            text = "email: " + user.email,
             style = MaterialTheme.typography.h6,
             modifier = Modifier.padding(2.dp),
             color = MaterialTheme.colors.primaryVariant
         )
-
-
     }
 }
-

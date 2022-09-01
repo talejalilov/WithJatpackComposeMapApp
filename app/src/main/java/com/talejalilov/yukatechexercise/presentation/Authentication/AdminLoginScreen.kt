@@ -27,8 +27,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.talejalilov.yukatechexercise.R
-import com.talejalilov.yukatechexercise.presentation.viewmodel.AuthenticationViewModel
 import com.talejalilov.yukatechexercise.presentation.Toast
+import com.talejalilov.yukatechexercise.presentation.viewmodel.AuthenticationViewModel
 import com.talejalilov.yukatechexercise.util.Response
 import com.talejalilov.yukatechexercise.util.Screens
 
@@ -46,7 +46,6 @@ fun AdminLoginScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-
             val emailState = remember {
                 mutableStateOf("")
             }
@@ -62,7 +61,6 @@ fun AdminLoginScreen(
             val isFormValid = derivedStateOf {
                 emailState.value.isNotBlank() && passwordState.value.length >= 7
             }
-
 
             Image(
                 painter = painterResource(id = R.drawable.ic_yuka),
@@ -93,7 +91,8 @@ fun AdminLoginScreen(
                     ) {
                         Spacer(modifier = Modifier.weight(1f))
 
-                        OutlinedTextField(  modifier = Modifier.fillMaxWidth(),
+                        OutlinedTextField(
+                            modifier = Modifier.fillMaxWidth(),
                             value = emailState.value,
                             onValueChange = { emailState.value = it },
                             label = { Text(text = "Email") },
@@ -103,10 +102,11 @@ fun AdminLoginScreen(
                                 imeAction = ImeAction.Done
                             ),
                             trailingIcon = {
-                                if (emailState.value.isNotBlank())
+                                if (emailState.value.isNotBlank()) {
                                     IconButton(onClick = { emailState.value = "" }) {
                                         Icon(imageVector = Icons.Filled.Clear, contentDescription = "")
                                     }
+                                }
                             }
                         )
                         Spacer(modifier = Modifier.height(8.dp))
@@ -140,16 +140,20 @@ fun AdminLoginScreen(
                             shape = RoundedCornerShape(16.dp),
                             colors = ButtonDefaults.buttonColors(
                                 backgroundColor = Color.White,
-                                contentColor = Color.Red),
+                                contentColor = Color.Red
+                            ),
                             onClick = {
                                 viewModel.signIn(
                                     email = emailState.value,
-                                    password = passwordState.value,
+                                    password = passwordState.value
                                 )
-                            },
+                            }
                         ) {
-                            Text(text = "Sign In",
-                                color = Color.Black) }
+                            Text(
+                                text = "Sign In",
+                                color = Color.Black
+                            )
+                        }
 
                         Spacer(modifier = Modifier.weight(1f))
                         Row(
@@ -165,7 +169,6 @@ fun AdminLoginScreen(
                             }
                         }
                         when (val response = viewModel.signInState.value) {
-
                             is Response.Loading -> {
                                 CircularProgressIndicator(
                                     modifier = Modifier
@@ -176,29 +179,23 @@ fun AdminLoginScreen(
 
                             is Response.Success -> {
                                 if (response.data) {
-                                    LaunchedEffect(key1 = true){
-
-
-                                    navHostController.navigate(Screens.FeedScreen.route) {
-                                        popUpTo(Screens.SignUpScreen.route) {
-                                            inclusive = true
+                                    LaunchedEffect(key1 = true) {
+                                        navHostController.navigate(Screens.FeedScreen.route) {
+                                            popUpTo(Screens.SignUpScreen.route) {
+                                                inclusive = true
+                                            }
                                         }
-                                    }
                                     }
                                 }
                             }
 
                             is Response.Error -> {
-
                                 Toast(message = response.message)
                             }
                         }
-
                     }
                 }
             }
-
-
         }
     }
 }

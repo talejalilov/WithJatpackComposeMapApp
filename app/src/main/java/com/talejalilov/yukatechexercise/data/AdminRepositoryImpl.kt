@@ -11,26 +11,22 @@ import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
 
 class AdminRepositoryImpl @Inject constructor(
-    private val firebaseFirestore: FirebaseFirestore) :AdminRepository {
+    private val firebaseFirestore: FirebaseFirestore
+) : AdminRepository {
     override fun getAdminUsers(adminId: String): Flow<Response<List<User>>> = callbackFlow {
-
-
         Response.Loading
-        val snapshotListener = firebaseFirestore.collection(Constants.COLLECTION_NAME_USERS).addSnapshotListener{
-                snapshot,error ->
-                val response = if(snapshot!=null){
-                    val adminUserList  =snapshot.toObjects(User::class.java)
-                    Response.Success<List<User>>(adminUserList)
-                }
-                else {
-                    Response.Error(error?.message?:error.toString())
-                }
-                trySend(response).isSuccess
+        val snapshotListener = firebaseFirestore.collection(Constants.COLLECTION_NAME_USERS).addSnapshotListener {
+                snapshot, error ->
+            val response = if (snapshot != null) {
+                val adminUserList = snapshot.toObjects(User::class.java)
+                Response.Success<List<User>>(adminUserList)
+            } else {
+                Response.Error(error?.message ?: error.toString())
             }
-        awaitClose{
+            trySend(response).isSuccess
+        }
+        awaitClose {
             snapshotListener.remove()
         }
-
     }
-
 }

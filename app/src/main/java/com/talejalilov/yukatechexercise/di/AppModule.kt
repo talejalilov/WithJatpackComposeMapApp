@@ -10,9 +10,8 @@ import com.talejalilov.yukatechexercise.domain.repo.AuthenticationRepository
 import com.talejalilov.yukatechexercise.domain.repo.UserRepository
 import com.talejalilov.yukatechexercise.domain.use_cases.adminUseCases.AdminUseCases
 import com.talejalilov.yukatechexercise.domain.use_cases.adminUseCases.GetAdminUsers
-import com.talejalilov.yukatechexercise.domain.use_cases.authenticationUseCases.*
+import com.talejalilov.yukatechexercise.domain.use_cases.authenticationUseCases.* // ktlint-disable no-wildcard-imports
 import com.talejalilov.yukatechexercise.domain.use_cases.userUsecases.GetUserDataUseCase
-import com.talejalilov.yukatechexercise.domain.use_cases.userUsecases.SetUserRouteUseCase
 import com.talejalilov.yukatechexercise.domain.use_cases.userUsecases.UserUseCases
 import dagger.Module
 import dagger.Provides
@@ -70,14 +69,12 @@ object AppModule {
         userRepository: UserRepository
     ) = UserUseCases(
         getUserDataUseCase = GetUserDataUseCase(repository = userRepository)
-     //   setUserRouteUseCase = SetUserRouteUseCase(repository = userRepository)
+        //   setUserRouteUseCase = SetUserRouteUseCase(repository = userRepository)
     )
-
-
 
     @Singleton
     @Provides
-    fun provideAdminUsersRepository(firebaseFirestore: FirebaseFirestore) : AdminRepository{
+    fun provideAdminUsersRepository(firebaseFirestore: FirebaseFirestore): AdminRepository {
         return AdminRepositoryImpl(firebaseFirestore = firebaseFirestore)
     }
 

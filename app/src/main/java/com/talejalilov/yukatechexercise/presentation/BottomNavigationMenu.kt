@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.talejalilov.yukatechexercise.util.Screens
 
-
 enum class BottomNavigationItem(val icon: ImageVector, val route: Screens) {
     FEED(Icons.Default.Map, Screens.FeedScreen),
     CREATE(Icons.Default.CreateNewFolder, Screens.CreateUserAccount)
@@ -24,16 +23,15 @@ enum class BottomNavigationItem(val icon: ImageVector, val route: Screens) {
 
 @Composable
 fun BottomNavigationMenu(
-    selectedItem: BottomNavigationItem, navController: NavController
+    selectedItem: BottomNavigationItem,
+    navController: NavController
 ) {
-
     Row(
         modifier = Modifier
-            //.fillMaxSize()
+            // .fillMaxSize()
             .wrapContentHeight()
             .background(Color.White)
     ) {
-
         for (item in BottomNavigationItem.values()) {
             Image(
                 imageVector = item.icon,

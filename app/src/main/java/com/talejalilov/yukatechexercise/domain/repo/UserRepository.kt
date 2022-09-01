@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
 
-    fun getUserData(adminId :String,userId:String): Flow<Response<User>>
+    fun getUserData(adminId: String, userId: String): Flow<Response<User>>
 
 //    fun getUserDetail(userId:String): Flow<Response<User>>
 //
@@ -16,5 +16,4 @@ interface UserRepository {
 //        latitude :String,
 //        longitude:String
 //    ):Flow<Response<Boolean>>
-
 }

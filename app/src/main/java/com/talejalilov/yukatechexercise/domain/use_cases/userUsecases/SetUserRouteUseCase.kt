@@ -1,4 +1,4 @@
-package com.talejalilov.yukatechexercise.domain.use_cases.userUsecases
+package com.talejalilov.yukatechexercise.domain.use_cases.userUsecases // ktlint-disable package-name
 
 import com.talejalilov.yukatechexercise.domain.repo.UserRepository
 import javax.inject.Inject
@@ -12,5 +12,4 @@ class SetUserRouteUseCase @Inject constructor(
 //                        longitude:String) =
 //        repository.setUserRoute(adminId = adminId, userId = userId, latitude = latitude, longitude = longitude)
 //
-
 }

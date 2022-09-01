@@ -20,7 +20,6 @@ import com.talejalilov.yukatechexercise.util.Screens
 
 @Composable
 fun ChooseScreen(navHostController: NavHostController) {
-
     Scaffold(backgroundColor = MaterialTheme.colors.primary) {
         Column(
 
@@ -30,8 +29,6 @@ fun ChooseScreen(navHostController: NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
-
-
             Image(
                 painter = painterResource(id = R.drawable.ic_yuka),
                 contentDescription = "App Logo",
@@ -59,7 +56,7 @@ fun ChooseScreen(navHostController: NavHostController) {
                                 inclusive = true
                             }
                         }
-                    },
+                    }
                 ) {
                     Text(
                         text = "Admin Page",
@@ -87,7 +84,7 @@ fun ChooseScreen(navHostController: NavHostController) {
                                 inclusive = true
                             }
                         }
-                    },
+                    }
                 ) {
                     Text(
                         text = "User Page",

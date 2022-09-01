@@ -1,4 +1,4 @@
-package com.talejalilov.yukatechexercise.domain.use_cases.authenticationUseCases
+package com.talejalilov.yukatechexercise.domain.use_cases.authenticationUseCases // ktlint-disable package-name
 
 data class AuthenticationUseCases(
     val isUserAuthenticated: IsUserAuthenticated,

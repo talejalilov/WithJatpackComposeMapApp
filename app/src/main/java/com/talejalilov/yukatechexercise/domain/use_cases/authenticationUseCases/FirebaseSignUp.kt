@@ -1,4 +1,4 @@
-package com.talejalilov.yukatechexercise.domain.use_cases.authenticationUseCases
+package com.talejalilov.yukatechexercise.domain.use_cases.authenticationUseCases // ktlint-disable package-name
 
 import com.talejalilov.yukatechexercise.domain.repo.AuthenticationRepository
 import javax.inject.Inject
@@ -6,7 +6,5 @@ import javax.inject.Inject
 class FirebaseSignUp@Inject constructor(
     private val repository: AuthenticationRepository
 ) {
-    operator fun invoke(email:String, password :String, username:String) = repository.firebaseSignUp(email, password,username)
-
-
+    operator fun invoke(email: String, password: String, username: String) = repository.firebaseSignUp(email, password, username)
 }

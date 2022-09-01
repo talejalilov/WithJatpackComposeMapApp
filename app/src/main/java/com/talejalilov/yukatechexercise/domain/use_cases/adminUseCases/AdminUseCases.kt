@@ -1,6 +1,5 @@
-package com.talejalilov.yukatechexercise.domain.use_cases.adminUseCases
-
-import com.talejalilov.yukatechexercise.domain.use_cases.userUsecases.GetUserDataUseCase
+package com.talejalilov.yukatechexercise.domain.use_cases.adminUseCases // ktlint-disable package-name
 
 class AdminUseCases(
-    val getAdminsUsers: GetAdminUsers)
+    val getAdminsUsers: GetAdminUsers
+)

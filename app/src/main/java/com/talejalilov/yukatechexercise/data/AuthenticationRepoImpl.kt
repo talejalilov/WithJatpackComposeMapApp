@@ -3,8 +3,8 @@ package com.talejalilov.yukatechexercise.data
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.talejalilov.yukatechexercise.domain.model.Admin
-import com.talejalilov.yukatechexercise.domain.model.User
+import com.talejalilov.yukatechexercise.data.model.Admin
+import com.talejalilov.yukatechexercise.data.model.User
 import com.talejalilov.yukatechexercise.domain.repo.AuthenticationRepository
 import com.talejalilov.yukatechexercise.util.Constants
 import com.talejalilov.yukatechexercise.util.Response
@@ -22,8 +22,6 @@ class AuthenticationRepoImpl @Inject constructor(
 ) : AuthenticationRepository {
 
     var operationIsSuccessful: Boolean = false
-
-    var adminID: String = ""
 
     override fun isUserAuthenticatedInFirebase(): Boolean {
         return auth.currentUser != null
@@ -69,13 +67,14 @@ class AuthenticationRepoImpl @Inject constructor(
                 Log.d("TAG", "3: ")
             }.await()
             if (operationIsSuccessful) {
-                adminID = auth.currentUser?.uid!!
+               val adminID = auth.currentUser?.uid!!
                 val obj = Admin(
                     username = username,
                     userId = adminID,
                     password = password,
                     email = email
                 )
+
                 firebaseFirestore.collection(Constants.COLLECTION_NAME_ADMINS).document(adminID)
                     .set(obj).addOnSuccessListener {
                     }
@@ -93,7 +92,6 @@ class AuthenticationRepoImpl @Inject constructor(
         password: String,
         username: String
     ): Flow<Response<Boolean>> = flow {
-        Log.d("TAG", "firebaseSignUpUser:$adminID ")
 
         Log.d("TAG", "firebaseSignUp1: ")
 

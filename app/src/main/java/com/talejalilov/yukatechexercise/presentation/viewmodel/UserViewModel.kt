@@ -5,12 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import com.talejalilov.yukatechexercise.domain.model.User
-import com.talejalilov.yukatechexercise.domain.use_cases.userUsecases.GetUserDataUseCase
+import com.talejalilov.yukatechexercise.data.model.User
 import com.talejalilov.yukatechexercise.domain.use_cases.userUsecases.UserUseCases
 import com.talejalilov.yukatechexercise.util.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

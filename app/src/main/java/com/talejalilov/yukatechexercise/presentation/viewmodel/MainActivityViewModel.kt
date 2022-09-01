@@ -1,12 +1,8 @@
 package com.talejalilov.yukatechexercise.presentation.viewmodel
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class MainActivityViewModel: ViewModel() {
+class MainActivityViewModel : ViewModel() {
 //
 //    private var _isNewLocationSelected = MutableLiveData(false)
 //    var isNewLocationSelected : MutableLiveData<Boolean> = _isNewLocationSelected
@@ -39,13 +35,12 @@ class MainActivityViewModel: ViewModel() {
 //        _isNewLocationSelected.value = status
 //    }
 //
-////    fun getSelectedLocation(latLng: LatLng){
-////        _selectedLat.value = latLng.latitude
-////        _selectedLng.value = latLng.longitude
-////    }
+// //    fun getSelectedLocation(latLng: LatLng){
+// //        _selectedLat.value = latLng.latitude
+// //        _selectedLng.value = latLng.longitude
+// //    }
 //
 //    fun permissionGrand(setGranted: Boolean){
 //        _locationPermissionGranted.value = setGranted
 //    }
-
 }

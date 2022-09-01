@@ -1,7 +1,7 @@
-package com.talejalilov.yukatechexercise.domain.model
+package com.talejalilov.yukatechexercise.data.model
 
 data class Admin(
-    var name: String,
+    var name: String = "",
     var username: String,
     var userId: String,
     var email: String,

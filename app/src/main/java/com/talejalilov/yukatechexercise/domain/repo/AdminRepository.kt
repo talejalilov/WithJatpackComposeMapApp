@@ -1,6 +1,6 @@
 package com.talejalilov.yukatechexercise.domain.repo
 
-import com.talejalilov.yukatechexercise.domain.model.User
+import com.talejalilov.yukatechexercise.data.model.User
 import com.talejalilov.yukatechexercise.util.Response
 import kotlinx.coroutines.flow.Flow
 

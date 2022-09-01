@@ -69,7 +69,6 @@ object AppModule {
         userRepository: UserRepository
     ) = UserUseCases(
         getUserDataUseCase = GetUserDataUseCase(repository = userRepository)
-        //   setUserRouteUseCase = SetUserRouteUseCase(repository = userRepository)
     )
 
     @Singleton

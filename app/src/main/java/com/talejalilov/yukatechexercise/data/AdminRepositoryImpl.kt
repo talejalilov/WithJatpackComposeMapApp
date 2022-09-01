@@ -1,7 +1,7 @@
 package com.talejalilov.yukatechexercise.data
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.talejalilov.yukatechexercise.domain.model.User
+import com.talejalilov.yukatechexercise.data.model.User
 import com.talejalilov.yukatechexercise.domain.repo.AdminRepository
 import com.talejalilov.yukatechexercise.util.Constants
 import com.talejalilov.yukatechexercise.util.Response

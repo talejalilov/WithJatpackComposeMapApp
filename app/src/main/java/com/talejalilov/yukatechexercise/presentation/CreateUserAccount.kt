@@ -27,7 +27,9 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.talejalilov.yukatechexercise.R
-import com.talejalilov.yukatechexercise.domain.model.User
+import com.talejalilov.yukatechexercise.data.mapper.toDto
+import com.talejalilov.yukatechexercise.data.model.User
+import com.talejalilov.yukatechexercise.data.model.dto.UserDto
 import com.talejalilov.yukatechexercise.presentation.viewmodel.AdminViewModel
 import com.talejalilov.yukatechexercise.presentation.viewmodel.AuthenticationViewModel
 import com.talejalilov.yukatechexercise.util.Response
@@ -261,13 +263,13 @@ fun UserListView(userList: List<User>) {
     ) {
         items(userList) { users ->
 
-            UserRow(user = users)
+            UserRow(user = users.toDto())
         }
     }
 }
 
 @Composable
-fun UserRow(user: User) {
+fun UserRow(user: UserDto) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -280,11 +282,5 @@ fun UserRow(user: User) {
             color = MaterialTheme.colors.primaryVariant
         )
 
-        Text(
-            text = "email: " + user.email,
-            style = MaterialTheme.typography.h6,
-            modifier = Modifier.padding(2.dp),
-            color = MaterialTheme.colors.primaryVariant
-        )
     }
 }

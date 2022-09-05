@@ -21,7 +21,6 @@ class AuthenticationRepoImpl @Inject constructor(
     private val firebaseFirestore: FirebaseFirestore
 ) : AuthenticationRepository {
 
-    var operationIsSuccessful: Boolean = false
 
     override fun isUserAuthenticatedInFirebase(): Boolean {
         return auth.currentUser != null
@@ -38,14 +37,12 @@ class AuthenticationRepoImpl @Inject constructor(
     }
 
     override fun firebaseSignIn(email: String, password: String): Flow<Response<Boolean>> = flow {
-        operationIsSuccessful = false
         try {
             emit(Response.Loading)
             auth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
-                operationIsSuccessful = true
             }.await()
 
-            emit(Response.Success(operationIsSuccessful))
+            emit(Response.Success(true))
         } catch (e: Exception) {
             emit(Response.Error(e.localizedMessage ?: "Login Error"))
         }
@@ -58,15 +55,12 @@ class AuthenticationRepoImpl @Inject constructor(
     ): Flow<Response<Boolean>> = flow {
         Log.d("TAG", "firebaseSignUp1: ")
 
-        operationIsSuccessful = false
         try {
             Log.d("TAG", "firebaseSignUp2: ")
             emit(Response.Loading)
             auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
-                operationIsSuccessful = true
                 Log.d("TAG", "3: ")
             }.await()
-            if (operationIsSuccessful) {
                val adminID = auth.currentUser?.uid!!
                 val obj = Admin(
                     username = username,
@@ -78,10 +72,8 @@ class AuthenticationRepoImpl @Inject constructor(
                 firebaseFirestore.collection(Constants.COLLECTION_NAME_ADMINS).document(adminID)
                     .set(obj).addOnSuccessListener {
                     }
-                emit(Response.Success(operationIsSuccessful))
-            } else {
-                emit(Response.Success(operationIsSuccessful))
-            }
+                emit(Response.Success(true))
+
         } catch (e: Exception) {
             emit(Response.Error(e.localizedMessage ?: "SignUp Error"))
         }
@@ -95,15 +87,12 @@ class AuthenticationRepoImpl @Inject constructor(
 
         Log.d("TAG", "firebaseSignUp1: ")
 
-        operationIsSuccessful = false
         try {
             Log.d("TAG", "firebaseSignUp2: ")
             emit(Response.Loading)
             auth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
-                operationIsSuccessful = true
                 Log.d("TAG", "3: ")
             }.await()
-            if (operationIsSuccessful) {
                 val userId = auth.currentUser?.uid!!
                 val obj = User(
                     username = username,
@@ -115,10 +104,8 @@ class AuthenticationRepoImpl @Inject constructor(
                 firebaseFirestore.collection(Constants.COLLECTION_NAME_USERS).document(userId)
                     .set(obj).addOnSuccessListener {
                     }
-                emit(Response.Success(operationIsSuccessful))
-            } else {
-                emit(Response.Success(operationIsSuccessful))
-            }
+                emit(Response.Success(true))
+
         } catch (e: Exception) {
             emit(Response.Error(e.localizedMessage ?: "SignUp Error"))
         }
